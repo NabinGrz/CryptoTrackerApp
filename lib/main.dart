@@ -1,4 +1,4 @@
-import 'package:cryptotrackerapp/localstorage/theme-storage.dart';
+import 'package:cryptotrackerapp/localstorage/local-storage.dart';
 import 'package:cryptotrackerapp/pages/homepage.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/theme-provider.dart';
@@ -36,7 +36,7 @@ class MyApp extends StatelessWidget {
               theme: lightTheme,
               darkTheme: darkTheme,
               debugShowCheckedModeBanner: false,
-              home: HomePage());
+              home: const HomePage());
         },
       ),
     );

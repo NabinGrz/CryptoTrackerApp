@@ -51,11 +51,15 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
                 Consumer<MarketProvider>(
                   builder: (context, marketProv, child) {
+                    var themeMode =
+                        Provider.of<ThemeProvider>(context, listen: false)
+                            .themeMode;
                     return Switch(
                       onChanged: (val) {
                         marketProv.checkTheme(val);
                         Provider.of<ThemeProvider>(context, listen: false)
                             .changeTheme();
+                        print("THEME MODE: $themeMode");
                       },
                       value: marketProv.isDark,
                       activeColor: const Color.fromARGB(255, 255, 255, 255),

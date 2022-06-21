@@ -45,12 +45,32 @@ class MarketPage extends StatelessWidget {
                                 backgroundColor: Colors.white,
                                 backgroundImage: NetworkImage(crypto.image!),
                               ),
-                              title: Text(
-                                "${crypto.name!} #${crypto.marketCapRank!}",
-                                style: const TextStyle(
-                                    //color: Colors.blue,
-                                    fontWeight: FontWeight.w400,
-                                    fontSize: 19),
+                              title: Row(
+                                children: [
+                                  Flexible(
+                                    child: Text(
+                                      "${crypto.name!} #${crypto.marketCapRank!}",
+                                      style: const TextStyle(
+                                          //color: Colors.blue,
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 19),
+                                    ),
+                                  ),
+                                  IconButton(
+                                      onPressed: () {
+                                        marketProv.addFavourite(crypto);
+                                      },
+                                      icon: (crypto.isFavourite == false)
+                                          ? const Icon(
+                                              Icons.favorite_border_outlined,
+                                              size: 19,
+                                            )
+                                          : const Icon(
+                                              Icons.favorite,
+                                              size: 19,
+                                              color: Colors.red,
+                                            ))
+                                ],
                               ),
                               subtitle: Text(crypto.symbol!.toUpperCase()),
                               trailing: Column(
