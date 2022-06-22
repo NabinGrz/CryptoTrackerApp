@@ -20,7 +20,6 @@ class LocalStorage {
     favourites.add(id);
     var result =
         await sharedPreferences.setStringList("favourites", favourites);
-    print("FAVOURITE SET: $result");
     return result;
   }
 
@@ -28,7 +27,7 @@ class LocalStorage {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     List<String> favourites =
         sharedPreferences.getStringList("favourites") ?? [];
-    print("FAVOURITE GET: $favourites");
+
     return favourites;
   }
 

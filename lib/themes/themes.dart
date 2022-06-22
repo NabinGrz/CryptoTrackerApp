@@ -4,8 +4,12 @@ import 'package:google_fonts/google_fonts.dart';
 ThemeData lightTheme = ThemeData(
     brightness: Brightness.light,
     fontFamily: GoogleFonts.lato().fontFamily,
-    textTheme: const TextTheme(bodyText1: TextStyle(fontSize: 22)));
+    textTheme: const TextTheme(
+        bodyText1: TextStyle(fontSize: 22),
+        bodyText2: TextStyle(fontSize: 17)));
 ThemeData darkTheme = ThemeData(
     brightness: Brightness.dark,
     fontFamily: GoogleFonts.lato().fontFamily,
-    textTheme: const TextTheme(bodyText1: TextStyle(fontSize: 22)));
+    textTheme: const TextTheme(
+        bodyText1: TextStyle(fontSize: 22),
+        bodyText2: TextStyle(fontSize: 17)));

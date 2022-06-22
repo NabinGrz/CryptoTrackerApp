@@ -24,17 +24,11 @@ class MarketProvider extends ChangeNotifier {
   Future<void> fetchData() async {
     List<CryptoCurrencyModel> markets = await API.getMarketData();
     List<String> favourites = await LocalStorage.fetchFavourite();
-    var m = Map.fromIterable(
-      markets,
-      key: (element) => element.toString(),
-    );
-    //for (var e in markets) {
-    // CryptoCurrencyModel crypto = CryptoCurrencyModel.fromJson(m);
-    // if (favourites.contains(crypto.id)) {
-    //   crypto.isFavourite = true;
-    //   //markets[];
-    // }
-    // }
+    for (var crypto in markets) {
+      if (favourites.contains(crypto.id)) {
+        crypto.isFavourite = true;
+      } else {}
+    }
 
     market = markets;
     isLoading = false;
@@ -49,14 +43,14 @@ class MarketProvider extends ChangeNotifier {
   void addFavourite(CryptoCurrencyModel crypto) async {
     int index = market.indexOf(crypto);
     market[index].isFavourite = true;
-    await LocalStorage.addFavourite(index.toString());
+    await LocalStorage.addFavourite(crypto.id!);
     notifyListeners();
   }
 
   void removeFavourite(CryptoCurrencyModel crypto) async {
     int index = market.indexOf(crypto);
     market[index].isFavourite = false;
-    await LocalStorage.removeFavourite(index.toString());
+    await LocalStorage.removeFavourite(crypto.id!);
     notifyListeners();
   }
 }
