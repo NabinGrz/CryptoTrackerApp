@@ -39,13 +39,16 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                 ),
               ),
             ),
+            const SizedBox(
+              height: 20,
+            ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 const Padding(
                   padding: EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                   child: Text(
-                    "Crypto Tracker",
+                    "Cryptos",
                     style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                 ),
@@ -59,7 +62,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         marketProv.checkTheme(val);
                         Provider.of<ThemeProvider>(context, listen: false)
                             .changeTheme();
-                        print("THEME MODE: $themeMode");
                       },
                       value: marketProv.isDark,
                       activeColor: const Color.fromARGB(255, 255, 255, 255),
@@ -71,6 +73,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                   },
                 )
               ],
+            ),
+            const SizedBox(
+              height: 20,
             ),
             TabBar(controller: tabController, tabs: [
               Text(

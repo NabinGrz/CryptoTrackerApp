@@ -3,6 +3,7 @@ import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class FavouritesPage extends StatelessWidget {
@@ -40,6 +41,13 @@ class FavouritesPage extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: const [
+              Icon(
+                Iconsax.box,
+                size: 100,
+              ),
+              SizedBox(
+                height: 20,
+              ),
               Text(
                 "Your favourite list is empty!!",
                 style: TextStyle(fontSize: 22),

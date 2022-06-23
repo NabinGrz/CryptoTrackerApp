@@ -1,12 +1,15 @@
 import 'package:cryptotrackerapp/apiservices/api.dart';
 import 'package:cryptotrackerapp/localstorage/local-storage.dart';
 import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
+import 'package:cryptotrackerapp/model/pricechartmodel.dart';
 import 'package:flutter/cupertino.dart';
 
 class MarketProvider extends ChangeNotifier {
   bool isLoading = true;
   bool isDark = false;
   List<CryptoCurrencyModel> market = [];
+  PriceChartModel? marketChart;
+  int size = 0;
   MarketProvider() {
     fetchData();
     // API.getMarketData();
@@ -33,6 +36,21 @@ class MarketProvider extends ChangeNotifier {
     market = markets;
     isLoading = false;
     notifyListeners();
+  }
+
+  Future<PriceChartModel> fetchMarketChart(String id) async {
+    var markets = await API.getMarketDataOfCrypto(id);
+    // //List<String> favourites = await LocalStorage.fetchFavourite();
+    // for (var crypto in markets) {
+    //   if (favourites.contains(crypto.id)) {
+    //     crypto.isFavourite = true;
+    //   } else {}
+    // }
+
+    marketChart = markets;
+    isLoading = false;
+    notifyListeners();
+    return marketChart!;
   }
 
   getMarketByID(String id) {
