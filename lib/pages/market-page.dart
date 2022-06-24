@@ -1,4 +1,5 @@
 import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
+import 'package:cryptotrackerapp/pages/trending-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
 import 'package:flutter/material.dart';
@@ -23,19 +24,27 @@ class MarketPage extends StatelessWidget {
               onRefresh: () async {
                 await marketProv.fetchData();
               },
-              child: ListView.builder(
-                  physics: const BouncingScrollPhysics(
-                      parent: AlwaysScrollableScrollPhysics()),
-                  itemCount: marketProv.market.length,
-                  itemBuilder: (context, index) {
-                    CryptoCurrencyModel cryptoCurrencyModel =
-                        marketProv.market[index];
-                    return Column(
-                      children: [
-                        CryptoTileList(cryptoCurrencyModel: cryptoCurrencyModel)
-                      ],
-                    );
-                  }),
+              child: Column(
+                children: [
+                  const TrendingCryptoPage(),
+                  Expanded(
+                    child: ListView.builder(
+                        physics: const BouncingScrollPhysics(
+                            parent: AlwaysScrollableScrollPhysics()),
+                        itemCount: marketProv.market.length,
+                        itemBuilder: (context, index) {
+                          CryptoCurrencyModel cryptoCurrencyModel =
+                              marketProv.market[index];
+                          return Column(
+                            children: [
+                              CryptoTileList(
+                                  cryptoCurrencyModel: cryptoCurrencyModel)
+                            ],
+                          );
+                        }),
+                  ),
+                ],
+              ),
             );
           } else {
             return const Text("No Data");

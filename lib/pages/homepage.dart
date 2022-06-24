@@ -1,3 +1,4 @@
+import 'package:cryptotrackerapp/apiservices/api.dart';
 import 'package:cryptotrackerapp/pages/favourites.dart';
 import 'package:cryptotrackerapp/pages/market-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
@@ -23,6 +24,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     print("BUILD WIDEGTS");
+    ThemeProvider themeProv =
+        Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
       body: SafeArea(
         child: Column(
@@ -32,7 +35,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               padding:
                   const EdgeInsets.symmetric(horizontal: 20.0, vertical: 0),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () async {
+                  await API.getTrendingCrypto();
+                },
                 child: const Text(
                   "Welcome",
                   style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
@@ -77,16 +82,30 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             const SizedBox(
               height: 20,
             ),
-            TabBar(controller: tabController, tabs: [
-              Text(
-                "Market",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-              Text(
-                "Favourites",
-                style: Theme.of(context).textTheme.bodyText1,
-              ),
-            ]),
+            Container(
+              height: 45,
+              decoration: BoxDecoration(
+                  color: (themeProv.themeMode == ThemeMode.light)
+                      ? const Color.fromARGB(255, 219, 219, 219)
+                      : const Color.fromARGB(255, 131, 129, 129),
+                  borderRadius: BorderRadius.circular(25.0)),
+              child: TabBar(
+                  controller: tabController,
+                  indicator: BoxDecoration(
+                      color: const Color.fromARGB(255, 45, 45, 237),
+                      borderRadius: BorderRadius.circular(25.0)),
+                  unselectedLabelColor: Colors.black,
+                  tabs: [
+                    Text(
+                      "Market",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                    Text(
+                      "Favourites",
+                      style: Theme.of(context).textTheme.bodyText1,
+                    ),
+                  ]),
+            ),
             Expanded(
               child: TabBarView(
                   controller: tabController,

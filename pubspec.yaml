@@ -41,6 +41,9 @@ dependencies:
   iconsax: ^0.0.8
   syncfusion_flutter_charts: ^20.1.61
   intl: ^0.17.0
+  syncfusion_flutter_gauges: ^20.1.61
+  sleek_circular_slider: ^2.0.1
+  fl_chart: ^0.55.0
 
 dev_dependencies:
   flutter_test:
