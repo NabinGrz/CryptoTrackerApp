@@ -46,3 +46,31 @@ class API {
     }
   }
 }
+
+
+/**
+ double.parse(getChartData()[0]
+                                                    .toString()) >
+                                                double.parse(getChartData()[6]
+                                                    .toString())
+                                            ? const LinearGradient(
+                                                colors: [
+                                                  Color(0xff23b6e6),
+                                                  Color(0xff02d39a)
+                                                ],
+                                                begin: Alignment.bottomLeft,
+                                                end: Alignment.topRight,
+                                                stops: [0.4, 0.7],
+                                                tileMode: TileMode.repeated,
+                                              )
+                                            : const LinearGradient(
+                                                colors: [
+                                                  Color(0xff23b6e6),
+                                                  Color(0xff02d39a)
+                                                ],
+                                                begin: Alignment.bottomLeft,
+                                                end: Alignment.topRight,
+                                                stops: [0.4, 0.7],
+                                                tileMode: TileMode.repeated,
+                                              ),
+ */

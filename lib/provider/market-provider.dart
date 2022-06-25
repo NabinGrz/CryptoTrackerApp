@@ -10,6 +10,7 @@ class MarketProvider extends ChangeNotifier {
   List<CryptoCurrencyModel> market = [];
   PriceChartModel? marketChart;
   int size = 0;
+
   MarketProvider() {
     fetchData();
     // API.getMarketData();

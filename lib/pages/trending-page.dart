@@ -1,3 +1,4 @@
+import 'package:cryptotrackerapp/model/pricechartmodel.dart';
 import 'package:cryptotrackerapp/model/trendingcryptomodel.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/theme-provider.dart';
@@ -7,13 +8,26 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class TrendingCryptoPage extends StatelessWidget {
+class TrendingCryptoPage extends StatefulWidget {
   const TrendingCryptoPage({Key? key}) : super(key: key);
 
   @override
+  State<TrendingCryptoPage> createState() => _TrendingCryptoPageState();
+}
+
+class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
+  @override
+  void initState() {
+    //_chartData =
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    PriceChartModel chartData;
     MarketProvider marketProv =
         Provider.of<MarketProvider>(context, listen: false);
+
     return Consumer<TrendingCryptoProvider>(
       builder: (context, trendProvider, child) {
         return Column(
@@ -39,6 +53,8 @@ class TrendingCryptoPage extends StatelessWidget {
                       ),
                       Consumer<ThemeProvider>(
                         builder: (context, themeProv, child) {
+                          // chartData = marketProv
+                          //     .getMarketByID(coin!.item!.symbol!.toString());
                           return Container(
                               height: getDeviceHeight(context) / 3.4,
                               width: getDeviceWidth(context) / 2.2,
@@ -89,7 +105,9 @@ class TrendingCryptoPage extends StatelessWidget {
                                         ),
                                         lineBarsData: [
                                           LineChartBarData(
-                                            spots: [
+                                            spots:
+                                                //getTrendChartData(),
+                                                [
                                               const FlSpot(0, 3),
                                               const FlSpot(2.6, 2),
                                               const FlSpot(4.9, 5),
@@ -124,4 +142,48 @@ class TrendingCryptoPage extends StatelessWidget {
       },
     );
   }
+
+  // List<FlSpot> getTrendChartData() {
+  //   try {
+  //     List<FlSpot> chartData = [];
+  //     List<dynamic> datalistPrice = [];
+  //     List<dynamic> datalistDate = [];
+  //     List<dynamic> finalListDate = [];
+  //     List<dynamic> finalListPrice = [];
+  //     for (int i = 0; i < _chartData!.prices!.length; i++) {
+  //       datalistPrice.addAll([_chartData!.prices![i][1]]);
+  //       datalistDate.addAll([_chartData!.prices![i][0]]);
+  //       finalListPrice = datalistPrice;
+  //       finalListDate = datalistDate;
+  //       chartData.add(FlSpot(finalListDate[i], finalListPrice[i]));
+  //       print("PRICE: ${finalListPrice[0]}");
+  //       // chartData.add(PriceData(
+  //       //     day: finalListDate[i],
+  //       //     price: finalListPrice[i],
+  //       //     color: (i.isEven)
+  //       //         ? const Color.fromARGB(255, 46, 197, 0)
+  //       //         : const Color.fromARGB(255, 252, 29, 0)));
+
+  //       //print(finalListPrice[i]);
+  //     }
+  //     //[(0.0, 3.0), (2.6, 2.0), (4.9, 5.0), (6.8, 2.5), (8.0, 4.0), (9.5, 3.0)]
+  //     // chartData = [
+  //     //   const FlSpot(343.0, 28828.44755984821),
+  //     //   const FlSpot(544.0, 28928.059944615532),
+  //     //   const FlSpot(5655.0, 29078.446327272137),
+  //     //   const FlSpot(767766.0, 29019.21560114639),
+  //     //   const FlSpot(7676.0, 29048.091431795056)
+  //     //   // const FlSpot(0, 3),
+  //     //   // const FlSpot(2.6, 2),
+  //     //   // const FlSpot(4.9, 5),
+  //     //   // const FlSpot(6.8, 2.5),
+  //     //   // const FlSpot(8, 4),
+  //     //   // const FlSpot(9.5, 3),
+  //     // ];
+  //     return chartData;
+  //   } catch (ex) {
+  //     return [];
+  //   }
+  // }
+
 }

@@ -82,6 +82,7 @@ class _CryptoTileListState extends State<CryptoTileList>
       //width: 800,
       child: ListTile(
         onTap: () async {
+          print("NAIUNB");
           var data =
               await marketProv.fetchMarketChart(widget.cryptoCurrencyModel.id!);
           Navigator.push(context, MaterialPageRoute(

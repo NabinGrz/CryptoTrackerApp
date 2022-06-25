@@ -26,7 +26,7 @@ class MarketPage extends StatelessWidget {
               },
               child: Column(
                 children: [
-                  const TrendingCryptoPage(),
+                  TrendingCryptoPage(),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(

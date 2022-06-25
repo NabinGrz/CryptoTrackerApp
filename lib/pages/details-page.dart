@@ -21,6 +21,11 @@ class DetailPage extends StatefulWidget {
 }
 
 class _DetailPageState extends State<DetailPage> {
+  final List<Color> gradientColors = [
+    const Color(0xff23b6e6),
+    const Color(0xff02d39a)
+  ];
+
   PriceChartModel? _chartData;
   TooltipBehavior? _tooltipBehavior;
   var currentMonth = DateFormat.LLLL().format(DateTime.now());
@@ -34,6 +39,13 @@ class _DetailPageState extends State<DetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    List<FlSpot> dataList = getChartData();
+    if (double.parse(dataList[0].y.toString()) <
+        double.parse(dataList[dataList.length - 1].y.toString())) {
+      print("YEESSSSS");
+    } else {
+      print("NNOOOOOOOOOOOO");
+    }
     return Scaffold(
       //appBar: AppBar(),
       body: SafeArea(
@@ -144,10 +156,6 @@ class _DetailPageState extends State<DetailPage> {
                                 width: MediaQuery.of(context).size.width,
                                 child: LineChart(
                                   LineChartData(
-                                    minX: 0,
-                                    maxX: 11,
-                                    minY: 0,
-                                    maxY: 6,
                                     titlesData: FlTitlesData(
                                       show: false,
                                     ),
@@ -159,22 +167,124 @@ class _DetailPageState extends State<DetailPage> {
                                     ),
                                     lineBarsData: [
                                       LineChartBarData(
-                                        spots: [
-                                          const FlSpot(0, 3),
-                                          const FlSpot(2.6, 2),
-                                          const FlSpot(4.9, 5),
-                                          const FlSpot(6.8, 2.5),
-                                          const FlSpot(8, 4),
-                                          const FlSpot(9.5, 3),
-                                        ],
-                                        isCurved: true,
-                                        color: Colors.red,
-                                        barWidth: 5,
+                                        spots: getChartData(),
+                                        // [
+                                        //   const FlSpot(2.6, 2),
+                                        //   const FlSpot(4.9, 5),
+                                        //   const FlSpot(6.8, 2.5),
+                                        //   const FlSpot(8, 4),
+                                        //   const FlSpot(9.5, 3),
+                                        // ],
+                                        // color: Colors.red,
+                                        gradient: (double.parse(
+                                                    dataList[0].y.toString()) <
+                                                double.parse(dataList[
+                                                        dataList.length - 1]
+                                                    .y
+                                                    .toString()))
+                                            ? const LinearGradient(
+                                                colors: [
+                                                  Color(0xff23b6e6),
+                                                  Color(0xff02d39a)
+                                                ],
+                                                begin: Alignment.bottomLeft,
+                                                end: Alignment.topRight,
+                                                stops: [0.4, 0.7],
+                                                tileMode: TileMode.repeated,
+                                              )
+                                            : const LinearGradient(
+                                                colors: [
+                                                  Color.fromARGB(
+                                                      255, 230, 93, 35),
+                                                  Color.fromARGB(
+                                                      255, 211, 26, 2)
+                                                ],
+                                                begin: Alignment.bottomLeft,
+                                                end: Alignment.topRight,
+                                                stops: [0.4, 0.7],
+                                                tileMode: TileMode.repeated,
+                                              ),
+
+                                        // isCurved: true,
+                                        barWidth: 3.5,
                                         // dotData: FlDotData(show: false),
                                         belowBarData: BarAreaData(
                                           show: true,
-                                          color: Colors.green,
+                                          // color: Colors.red,
+                                          gradient: (double.parse(dataList[0]
+                                                      .y
+                                                      .toString()) <
+                                                  double.parse(dataList[
+                                                          dataList.length - 1]
+                                                      .y
+                                                      .toString()))
+                                              ? const LinearGradient(
+                                                  colors: [
+                                                    Color(0xff23b6e6),
+                                                    Color(0xff02d39a)
+                                                  ],
+                                                  begin: Alignment.topRight,
+                                                  end: Alignment.topLeft,
+                                                  stops: [0.4, 0.7],
+                                                  tileMode: TileMode.repeated,
+                                                )
+                                              : LinearGradient(
+                                                  colors: [
+                                                    const Color.fromARGB(
+                                                            255, 230, 54, 35)
+                                                        .withOpacity(0.6),
+                                                    const Color.fromARGB(
+                                                            255, 211, 26, 2)
+                                                        .withOpacity(0.6)
+                                                  ],
+                                                  begin: Alignment.bottomLeft,
+                                                  end: Alignment.topRight,
+                                                  stops: const [0.4, 0.7],
+                                                  tileMode: TileMode.repeated,
+                                                ),
+                                          // spotsLine: BarAreaSpotsLine(
+                                          //   show: true,
+                                          //   flLineStyle: FlLine(
+
+                                          //     color: const Color.fromARGB(
+                                          //             255, 110, 217, 47)
+                                          //         .withOpacity(0.4),
+                                          //     // strokeWidth: 2,
+                                          //   ),
+                                          //   checkToShowSpotLine: (spot) {
+                                          //     if (spot.x == 0 || spot.x == 6) {
+                                          //       return false;
+                                          //     }
+
+                                          //     return true;
+                                          //   },
+                                          // ),
                                         ),
+                                        dotData: FlDotData(
+                                            show: false,
+                                            getDotPainter: (spot, percent,
+                                                barData, index) {
+                                              return FlDotCirclePainter();
+                                              // if (index % 2 == 0) {
+                                              //   return FlDotCirclePainter(
+                                              //       radius: 6,
+                                              //       color: Colors.white,
+                                              //       strokeWidth: 3,
+                                              //       strokeColor:
+                                              //           Colors.deepOrange);
+                                              // } else {
+                                              //   return FlDotSquarePainter(
+                                              //     size: 12,
+                                              //     color: Colors.white,
+                                              //     strokeWidth: 3,
+                                              //     strokeColor:
+                                              //         Colors.deepOrange,
+                                              //   );
+                                              // }
+                                            },
+                                            checkToShowDot: (spot, barData) {
+                                              return spot.x != 0 && spot.x != 6;
+                                            }),
                                       ),
                                     ],
                                   ),
@@ -457,6 +567,7 @@ class _DetailPageState extends State<DetailPage> {
         finalListPrice = datalistPrice;
         finalListDate = datalistDate;
         chartData.add(FlSpot(finalListDate[i], finalListPrice[i]));
+        print("PRICE: ${finalListPrice[0]}");
         // chartData.add(PriceData(
         //     day: finalListDate[i],
         //     price: finalListPrice[i],
@@ -466,6 +577,20 @@ class _DetailPageState extends State<DetailPage> {
 
         //print(finalListPrice[i]);
       }
+      //[(0.0, 3.0), (2.6, 2.0), (4.9, 5.0), (6.8, 2.5), (8.0, 4.0), (9.5, 3.0)]
+      // chartData = [
+      //   const FlSpot(343.0, 28828.44755984821),
+      //   const FlSpot(544.0, 28928.059944615532),
+      //   const FlSpot(5655.0, 29078.446327272137),
+      //   const FlSpot(767766.0, 29019.21560114639),
+      //   const FlSpot(7676.0, 29048.091431795056)
+      //   // const FlSpot(0, 3),
+      //   // const FlSpot(2.6, 2),
+      //   // const FlSpot(4.9, 5),
+      //   // const FlSpot(6.8, 2.5),
+      //   // const FlSpot(8, 4),
+      //   // const FlSpot(9.5, 3),
+      // ];
       return chartData;
     } catch (ex) {
       return [];
