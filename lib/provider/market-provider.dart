@@ -10,7 +10,7 @@ class MarketProvider extends ChangeNotifier {
   List<CryptoCurrencyModel> market = [];
   PriceChartModel? marketChart;
   int size = 0;
-
+  int coinIndex = 0;
   MarketProvider() {
     fetchData();
     // API.getMarketData();
@@ -39,8 +39,8 @@ class MarketProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  Future<PriceChartModel> fetchMarketChart(String id) async {
-    var markets = await API.getMarketDataOfCrypto(id);
+  Future<PriceChartModel> fetchMarketChart(String? id) async {
+    var markets = await API.getMarketDataOfCrypto(id!);
     // //List<String> favourites = await LocalStorage.fetchFavourite();
     // for (var crypto in markets) {
     //   if (favourites.contains(crypto.id)) {

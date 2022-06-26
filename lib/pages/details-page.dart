@@ -72,16 +72,17 @@ class _DetailPageState extends State<DetailPage> {
                           width: getDeviceWidth(context),
                           height: getDeviceHeight(context) / 1.7,
                         ),
-                        SizedBox(
+                        Container(
                           height: getDeviceHeight(context) / 1.7,
-                          //color: const Color.fromARGB(255, 30, 0, 179),
+                          color: const Color.fromARGB(255, 30, 0, 179),
                           child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            // mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                             children: [
                               Align(
                                 alignment: Alignment.topLeft,
                                 child: SizedBox(
-                                  height: getDeviceHeight(context) / 15,
+                                  // color: Colors.green,
+                                  height: getDeviceHeight(context) / 40,
                                   child: IconButton(
                                     onPressed: () {
                                       Navigator.pop(context);
@@ -95,7 +96,9 @@ class _DetailPageState extends State<DetailPage> {
                               ),
                               Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: getDeviceWidth(context) * 0.02),
+                                  horizontal: getDeviceWidth(context) * 0.02,
+                                  vertical: getDeviceWidth(context) / 12,
+                                ),
                                 child: Row(
                                   //mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -131,7 +134,7 @@ class _DetailPageState extends State<DetailPage> {
                                         Text(
                                           "${crypto.currentPrice!} USD",
                                           style: const TextStyle(
-                                            fontSize: 16,
+                                            fontSize: 20,
                                             color: Color.fromARGB(
                                                 255, 200, 200, 200),
                                           ),
@@ -150,17 +153,81 @@ class _DetailPageState extends State<DetailPage> {
                               // const SizedBox(
                               //   height: 13,
                               // ),
-                              SizedBox(
+                              Container(
                                 // color: Colors.redAccent,
                                 height: getDeviceHeight(context) / 2.5,
+                                margin: const EdgeInsets.symmetric(
+                                  horizontal: 10,
+                                ),
+
                                 width: MediaQuery.of(context).size.width,
                                 child: LineChart(
                                   LineChartData(
                                     titlesData: FlTitlesData(
-                                      show: false,
-                                    ),
+                                        show: true,
+                                        bottomTitles: AxisTitles(
+                                            sideTitles: SideTitles(
+                                          showTitles: true,
+                                          //interval: 7,
+                                          reservedSize: 40,
+                                          getTitlesWidget: (value, TitleMeta) {
+                                            var d = DateTime
+                                                    .fromMicrosecondsSinceEpoch(
+                                                        value.toInt() * 1000,
+                                                        isUtc: false)
+                                                .day;
+                                            return Column(
+                                              children: [
+                                                Text(
+                                                  d.toString(),
+                                                  style: const TextStyle(
+                                                      fontSize: 12,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromARGB(
+                                                          255, 120, 148, 162)),
+                                                ),
+                                                Text(
+                                                  currentMonthShort,
+                                                  style: const TextStyle(
+                                                      fontSize: 15,
+                                                      fontWeight:
+                                                          FontWeight.bold,
+                                                      color: Color.fromARGB(
+                                                          255, 120, 148, 162)),
+                                                ),
+                                              ],
+                                            );
+                                          },
+                                        )),
+                                        leftTitles: AxisTitles(
+                                            sideTitles: SideTitles(
+                                          showTitles: true,
+                                          //interval: 7,
+                                          reservedSize: 40,
+
+                                          getTitlesWidget: (value, TitleMeta) {
+                                            NumberFormat numberFormat =
+                                                NumberFormat.compact();
+
+                                            return Text(
+                                              numberFormat.format(value),
+                                              style: const TextStyle(
+                                                  fontSize: 15,
+                                                  fontWeight: FontWeight.bold,
+                                                  color: Color.fromARGB(
+                                                      255, 120, 148, 162)),
+                                            );
+                                          },
+                                        )),
+                                        topTitles: AxisTitles(
+                                            sideTitles:
+                                                SideTitles(showTitles: false)),
+                                        rightTitles: AxisTitles(
+                                            sideTitles:
+                                                SideTitles(showTitles: false))),
                                     gridData: FlGridData(
-                                      show: false,
+                                      show: true,
                                     ),
                                     borderData: FlBorderData(
                                       show: false,
@@ -206,7 +273,7 @@ class _DetailPageState extends State<DetailPage> {
                                               ),
 
                                         // isCurved: true,
-                                        barWidth: 3.5,
+                                        barWidth: 1.5,
                                         // dotData: FlDotData(show: false),
                                         belowBarData: BarAreaData(
                                           show: true,
@@ -218,28 +285,30 @@ class _DetailPageState extends State<DetailPage> {
                                                           dataList.length - 1]
                                                       .y
                                                       .toString()))
-                                              ? const LinearGradient(
+                                              ? LinearGradient(
                                                   colors: [
-                                                    Color(0xff23b6e6),
-                                                    Color(0xff02d39a)
+                                                    const Color(0xff23b6e6)
+                                                        .withOpacity(0.6),
+                                                    const Color(0xff02d39a)
+                                                        .withOpacity(0.6)
                                                   ],
-                                                  begin: Alignment.topRight,
-                                                  end: Alignment.topLeft,
-                                                  stops: [0.4, 0.7],
+                                                  begin: Alignment.topCenter,
+                                                  end: Alignment.bottomLeft,
+                                                  // stops: [0.9, 0.20],
                                                   tileMode: TileMode.repeated,
                                                 )
                                               : LinearGradient(
                                                   colors: [
                                                     const Color.fromARGB(
-                                                            255, 230, 54, 35)
+                                                            255, 90, 26, 18)
                                                         .withOpacity(0.6),
                                                     const Color.fromARGB(
-                                                            255, 211, 26, 2)
-                                                        .withOpacity(0.6)
+                                                            255, 230, 48, 35)
+                                                        .withOpacity(0.6),
                                                   ],
                                                   begin: Alignment.bottomLeft,
                                                   end: Alignment.topRight,
-                                                  stops: const [0.4, 0.7],
+                                                  //  stops: const [0.4, 0.7],
                                                   tileMode: TileMode.repeated,
                                                 ),
                                           // spotsLine: BarAreaSpotsLine(

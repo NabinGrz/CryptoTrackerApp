@@ -6,6 +6,7 @@ class TrendingCryptoProvider extends ChangeNotifier {
   List<Coin?> trendingCrypto = [];
   bool isLoading = true;
   bool isHigh = false;
+  int coinIndex = 0;
   TrendingCryptoProvider() {
     fetchTrendingCrypto();
   }
@@ -15,5 +16,13 @@ class TrendingCryptoProvider extends ChangeNotifier {
 
     isLoading = false;
     notifyListeners();
+  }
+
+  int getIndex() {
+    for (int i = 0; i < trendingCrypto.length; i++) {
+      coinIndex = i;
+    }
+    notifyListeners();
+    return coinIndex;
   }
 }

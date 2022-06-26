@@ -1,6 +1,7 @@
 import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
 import 'package:cryptotrackerapp/pages/trending-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
+import 'package:cryptotrackerapp/provider/trending-crypto-provider.dart';
 import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -10,6 +11,8 @@ class MarketPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    TrendingCryptoProvider trendingCryptoProvider =
+        Provider.of<TrendingCryptoProvider>(context, listen: false);
     return Consumer<MarketProvider>(
       builder: (context, marketProv, child) {
         if (marketProv.isLoading) {
@@ -26,12 +29,14 @@ class MarketPage extends StatelessWidget {
               },
               child: Column(
                 children: [
-                  TrendingCryptoPage(),
+                  TrendingCryptoPage(
+                      cryptoCurrencyModel:
+                          marketProv.market[marketProv.coinIndex]),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        itemCount: marketProv.market.length,
+                        itemCount: marketProv.market.length % 3,
                         itemBuilder: (context, index) {
                           CryptoCurrencyModel cryptoCurrencyModel =
                               marketProv.market[index];
@@ -47,7 +52,7 @@ class MarketPage extends StatelessWidget {
               ),
             );
           } else {
-            return const Text("No Data");
+            return const Center(child: Text("No Crypto Found"));
           }
         }
         //CryptoCurrencyModel crypto =

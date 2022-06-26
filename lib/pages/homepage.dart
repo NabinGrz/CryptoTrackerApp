@@ -1,9 +1,13 @@
 import 'package:cryptotrackerapp/apiservices/api.dart';
 import 'package:cryptotrackerapp/pages/favourites.dart';
+import 'package:cryptotrackerapp/pages/login.dart';
 import 'package:cryptotrackerapp/pages/market-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/theme-provider.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
 class HomePage extends StatefulWidget {
@@ -21,12 +25,31 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.initState();
   }
 
+  void logOut() async {
+    await FirebaseAuth.instance.signOut();
+    Navigator.popUntil(context, (route) => route.isFirst);
+    Navigator.pushReplacement(context, CupertinoPageRoute(
+      builder: (context) {
+        return const MyLogin();
+      },
+    ));
+  }
+
   @override
   Widget build(BuildContext context) {
     print("BUILD WIDEGTS");
     ThemeProvider themeProv =
         Provider.of<ThemeProvider>(context, listen: false);
     return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+              onPressed: () {
+                logOut();
+              },
+              icon: const Icon(Iconsax.logout))
+        ],
+      ),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
