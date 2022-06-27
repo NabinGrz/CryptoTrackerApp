@@ -1,7 +1,6 @@
 import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
 import 'package:cryptotrackerapp/model/pricechartmodel.dart';
 import 'package:cryptotrackerapp/model/trendingcryptomodel.dart';
-import 'package:cryptotrackerapp/pages/details-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/theme-provider.dart';
 import 'package:cryptotrackerapp/provider/trending-crypto-provider.dart';
@@ -38,9 +37,9 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
         return Column(
           children: [
             SizedBox(
-              height: getDeviceHeight(context) / 3,
+              height: getDeviceHeight(context) / 5.9,
               width: getDeviceWidth(context),
-              //color: Colors.red,
+              // color: Colors.red,
               child: ListView.builder(
                 physics: const BouncingScrollPhysics(
                     parent: AlwaysScrollableScrollPhysics()),
@@ -60,59 +59,97 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                       ),
                       Consumer<ThemeProvider>(
                         builder: (context, themeProv, child) {
-                          print(
-                              "ITEMS:  ${trendProvider.trendingCrypto[index]?.item!.id}");
-
                           // getTrendChartData();
-                          return InkWell(
-                            onTap: () async {
-                              var data = await marketProvider
-                                  .getMarketByID(coin!.item!.id!);
-                              Navigator.push(context, MaterialPageRoute(
-                                builder: (context) {
-                                  return DetailPage(
-                                      id: coin.item!.id!, priceData: data);
-                                },
-                              ));
-                            },
-                            child: Container(
-                                height: getDeviceHeight(context) / 3.4,
-                                width: getDeviceWidth(context) / 2.2,
-                                decoration: BoxDecoration(
-                                    color: (themeProv.themeMode ==
-                                            ThemeMode.light)
-                                        ? const Color.fromARGB(
-                                            255, 219, 219, 219)
-                                        : const Color.fromARGB(255, 77, 76, 76),
-                                    borderRadius: BorderRadius.circular(25.0)),
-                                child: Column(
-                                  children: [
-                                    ListTile(
-                                      leading: CircleAvatar(
-                                        backgroundColor: Colors.white,
-                                        backgroundImage: NetworkImage(
-                                            coin!.item!.small!.toString()),
+                          return Stack(
+                            children: [
+                              Container(
+                                  height: double.infinity,
+                                  width: getDeviceWidth(context) / 2.2,
+                                  decoration: BoxDecoration(
+                                      color: (themeProv.themeMode ==
+                                              ThemeMode.light)
+                                          ? (index.isOdd)
+                                              ? blueColor
+                                              : (index % 4 != 0)
+                                                  ? orangeColor
+                                                  : (index % 3 != 0)
+                                                      ? yellowColor
+                                                      : (index % 3 > 4 ||
+                                                              index % 3 > 3)
+                                                          ? greenColor
+                                                          : redwColor
+                                          : const Color.fromARGB(
+                                              255, 77, 76, 76),
+                                      borderRadius:
+                                          BorderRadius.circular(25.0)),
+                                  child: Column(
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.topLeft,
+                                        child: Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 18.0, top: 10),
+                                          child: Text(
+                                            "Rank: ${coin!.item!.marketCapRank!}",
+                                            style: const TextStyle(
+                                                fontSize: 17,
+                                                fontWeight: FontWeight.w300),
+                                          ),
+                                        ),
                                       ),
-                                      title: GestureDetector(
-                                        onTap: () {},
-                                        child: Text(
-                                          coin.item!.symbol!.toString(),
+                                      ListTile(
+                                        leading: Text(
+                                          coin.item!.name!,
+                                          overflow: TextOverflow.ellipsis,
                                           style: const TextStyle(
                                               fontSize: 20,
                                               fontWeight: FontWeight.bold),
                                         ),
-                                      ), //currentPrice.currentPrice;
-                                      subtitle: Text(
-                                        "${coin.item!.name!}#${coin.item!.marketCapRank!}",
-                                        overflow: TextOverflow.ellipsis,
-                                        style: const TextStyle(
-                                            fontSize: 17,
-                                            fontWeight: FontWeight.w300),
                                       ),
+                                      Align(
+                                        alignment: Alignment.bottomLeft,
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            CircleAvatar(
+                                              backgroundColor: Colors.white,
+                                              backgroundImage: NetworkImage(
+                                                  coin.item!.small!.toString()),
+                                            ),
+                                            Text(
+                                              coin.item!.symbol!.toString(),
+                                              style: const TextStyle(
+                                                  fontSize: 20,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      //buildChart(context, priceData, index)
+                                    ],
+                                  )),
+                              Positioned(
+                                  right: -50,
+                                  child: Opacity(
+                                    opacity: 0.6,
+                                    child: Image.asset(
+                                      "images/topRightTrend.png",
                                     ),
-                                    //buildChart(context, priceData, index)
-                                  ],
-                                )),
+                                  )),
+                              Positioned(
+                                  top: 20,
+                                  left: -30,
+                                  child: Container(
+                                    height: 60,
+                                    width: 60,
+                                    decoration: BoxDecoration(
+                                        color: const Color.fromARGB(
+                                                255, 186, 188, 223)
+                                            .withOpacity(0.5),
+                                        shape: BoxShape.circle),
+                                  )),
+                            ],
                           );
                         },
                       ),

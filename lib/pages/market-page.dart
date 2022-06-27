@@ -26,17 +26,53 @@ class MarketPage extends StatelessWidget {
             return RefreshIndicator(
               onRefresh: () async {
                 await marketProv.fetchData();
+                await trendingCryptoProvider.fetchTrendingCrypto();
               },
               child: Column(
                 children: [
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 18.0, top: 10),
+                      child: Text(
+                        "Trending",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   TrendingCryptoPage(
                       cryptoCurrencyModel:
                           marketProv.market[marketProv.coinIndex]),
+                  const SizedBox(
+                    height: 20,
+                  ),
+                  const Align(
+                    alignment: Alignment.topLeft,
+                    child: Padding(
+                      padding: EdgeInsets.only(left: 18.0, top: 10),
+                      child: Text(
+                        "Coins",
+                        style: TextStyle(
+                          fontSize: 23,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),
-                        itemCount: marketProv.market.length % 3,
+                        itemCount: marketProv.market.length,
                         itemBuilder: (context, index) {
                           CryptoCurrencyModel cryptoCurrencyModel =
                               marketProv.market[index];
