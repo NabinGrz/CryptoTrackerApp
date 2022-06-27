@@ -41,13 +41,6 @@ class MarketProvider extends ChangeNotifier {
 
   Future<PriceChartModel> fetchMarketChart(String? id) async {
     var markets = await API.getMarketDataOfCrypto(id!);
-    // //List<String> favourites = await LocalStorage.fetchFavourite();
-    // for (var crypto in markets) {
-    //   if (favourites.contains(crypto.id)) {
-    //     crypto.isFavourite = true;
-    //   } else {}
-    // }
-
     marketChart = markets;
     isLoading = false;
     notifyListeners();

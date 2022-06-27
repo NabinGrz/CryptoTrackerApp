@@ -8,7 +8,9 @@ import 'package:provider/provider.dart';
 
 class CryptoTileList extends StatefulWidget {
   final CryptoCurrencyModel cryptoCurrencyModel;
-  const CryptoTileList({Key? key, required this.cryptoCurrencyModel})
+  Widget? chartWidget;
+  CryptoTileList(
+      {Key? key, required this.cryptoCurrencyModel, this.chartWidget})
       : super(key: key);
 
   @override
@@ -26,13 +28,6 @@ class _CryptoTileListState extends State<CryptoTileList>
 
     _controller = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 600));
-
-    // _sizeAnimation = TweenSequence(<TweenSequenceItem<double>>[
-    //   TweenSequenceItem<double>(
-    //       tween: Tween<double>(begin: 0, end: 40), weight: 40),
-    //   TweenSequenceItem<double>(
-    //       tween: Tween<double>(begin: 40, end: 0), weight: 40)
-    // ]).animate(_controller);
 
     _sizeAnimation =
         CurvedAnimation(parent: _controller, curve: Curves.easeInOut);
@@ -77,9 +72,6 @@ class _CryptoTileListState extends State<CryptoTileList>
                     spreadRadius: 2.0,
                   )
           ]),
-      //color: Colors.white,
-
-      //width: 800,
       child: ListTile(
         onTap: () async {
           print("NAIUNB");

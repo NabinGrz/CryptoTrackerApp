@@ -65,9 +65,6 @@ class MarketPage extends StatelessWidget {
                       ),
                     ),
                   ),
-                  const SizedBox(
-                    height: 20,
-                  ),
                   Expanded(
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(
@@ -76,12 +73,8 @@ class MarketPage extends StatelessWidget {
                         itemBuilder: (context, index) {
                           CryptoCurrencyModel cryptoCurrencyModel =
                               marketProv.market[index];
-                          return Column(
-                            children: [
-                              CryptoTileList(
-                                  cryptoCurrencyModel: cryptoCurrencyModel)
-                            ],
-                          );
+                          return CryptoTileList(
+                              cryptoCurrencyModel: cryptoCurrencyModel);
                         }),
                   ),
                 ],

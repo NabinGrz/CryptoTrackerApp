@@ -1,13 +1,25 @@
 import 'package:cryptotrackerapp/localstorage/local-storage.dart';
 import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
-import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
+import 'package:cryptotrackerapp/widgets/favourite-market-list-tile.dart';
 import 'package:flutter/material.dart';
 import 'package:iconsax/iconsax.dart';
 import 'package:provider/provider.dart';
 
-class FavouritesPage extends StatelessWidget {
+class FavouritesPage extends StatefulWidget {
   const FavouritesPage({Key? key}) : super(key: key);
+
+  @override
+  State<FavouritesPage> createState() => _FavouritesPageState();
+}
+
+class _FavouritesPageState extends State<FavouritesPage> {
+  late MarketProvider marketProv;
+  @override
+  void initState() {
+    marketProv = Provider.of<MarketProvider>(context, listen: false);
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -31,7 +43,10 @@ class FavouritesPage extends StatelessWidget {
                   CryptoCurrencyModel cryptoCurrencyModel = favourites[index];
                   return Column(
                     children: [
-                      CryptoTileList(cryptoCurrencyModel: cryptoCurrencyModel)
+                      //buildChart(context, priceData, index),
+                      FavouriteCryptoTileList(
+                        cryptoCurrencyModel: cryptoCurrencyModel,
+                      )
                     ],
                   );
                 }),

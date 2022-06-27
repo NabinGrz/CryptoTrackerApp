@@ -18,3 +18,6 @@ Color yellowColor = const Color.fromARGB(255, 225, 254, 78);
 Color redwColor = const Color.fromARGB(255, 254, 78, 78);
 //BUTTON COLOR
 Color buttonColor = const Color(0xff58caf0);
+//TEXT COLOR
+Color textColor1 = const Color(0XFF767c9c);
+Color whiteTextColor = Colors.white;
