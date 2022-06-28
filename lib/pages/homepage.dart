@@ -21,6 +21,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late TabController tabController;
   PriceChartModel? priceData;
   late MarketProvider marketProv;
+  TextEditingController searchController = TextEditingController();
   @override
   void initState() {
     marketProv = Provider.of<MarketProvider>(context, listen: false);
@@ -46,6 +47,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     MarketProvider marketProv =
         Provider.of<MarketProvider>(context, listen: false);
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       // appBar: AppBar(
       //   actions: [
       //     IconButton(

@@ -52,6 +52,11 @@ class MarketProvider extends ChangeNotifier {
     return crypto;
   }
 
+  List<CryptoCurrencyModel> getMarketByIDForSearch(String id) {
+    var crypto = market.where((data) => data.id == id).toList();
+    return crypto;
+  }
+
   void addFavourite(CryptoCurrencyModel crypto) async {
     int index = market.indexOf(crypto);
     market[index].isFavourite = true;

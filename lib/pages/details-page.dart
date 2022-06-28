@@ -73,14 +73,12 @@ class _DetailPageState extends State<DetailPage> {
                         children: [
                           Align(
                             alignment: Alignment.topLeft,
-                            child: Expanded(
-                              child: IconButton(
-                                onPressed: () {
-                                  Navigator.pop(context);
-                                },
-                                icon: const Icon(
-                                  CupertinoIcons.arrow_left,
-                                ),
+                            child: IconButton(
+                              onPressed: () {
+                                Navigator.pop(context);
+                              },
+                              icon: const Icon(
+                                CupertinoIcons.arrow_left,
                               ),
                             ),
                           ),
@@ -250,9 +248,10 @@ class _DetailPageState extends State<DetailPage> {
                                     getTitlesWidget: (value, TitleMeta) {
                                       NumberFormat numberFormat =
                                           NumberFormat.compact();
-
                                       return Text(
-                                        numberFormat.format(value),
+                                        (value > 100)
+                                            ? numberFormat.format(value)
+                                            : "${numberFormat.format(value)}\$",
                                         style: const TextStyle(
                                             fontSize: 15,
                                             fontWeight: FontWeight.bold,

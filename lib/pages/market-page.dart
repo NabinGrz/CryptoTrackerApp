@@ -3,11 +3,23 @@ import 'package:cryptotrackerapp/pages/trending-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/trending-crypto-provider.dart';
 import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
+import 'package:cryptotrackerapp/widgets/searchbartypeahead.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-class MarketPage extends StatelessWidget {
+class MarketPage extends StatefulWidget {
   const MarketPage({Key? key}) : super(key: key);
+
+  @override
+  State<MarketPage> createState() => _MarketPageState();
+}
+
+class _MarketPageState extends State<MarketPage> {
+  late AnimationController animationController;
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -30,6 +42,13 @@ class MarketPage extends StatelessWidget {
               },
               child: Column(
                 children: [
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  buildTypeSuggestionField(marketProv, context),
+                  const SizedBox(
+                    height: 20,
+                  ),
                   const Align(
                     alignment: Alignment.topLeft,
                     child: Padding(
@@ -66,6 +85,7 @@ class MarketPage extends StatelessWidget {
                     ),
                   ),
                   Expanded(
+                    flex: 1,
                     child: ListView.builder(
                         physics: const BouncingScrollPhysics(
                             parent: AlwaysScrollableScrollPhysics()),

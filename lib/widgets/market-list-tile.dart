@@ -41,7 +41,7 @@ class _CryptoTileListState extends State<CryptoTileList>
     ThemeProvider themeProv =
         Provider.of<ThemeProvider>(context, listen: false);
     return Container(
-      height: getDeviceHeight(context) * 0.1,
+      //  height: getDeviceHeight(context) * 0.1,
       width: getDeviceWidth(context),
       margin: const EdgeInsets.all(6),
       decoration: BoxDecoration(
@@ -74,7 +74,6 @@ class _CryptoTileListState extends State<CryptoTileList>
           ]),
       child: ListTile(
         onTap: () async {
-          print("NAIUNB");
           var data =
               await marketProv.fetchMarketChart(widget.cryptoCurrencyModel.id!);
           Navigator.push(context, MaterialPageRoute(
@@ -90,14 +89,12 @@ class _CryptoTileListState extends State<CryptoTileList>
         ),
         title: Row(
           children: [
-            Flexible(
-              child: Text(
-                "${widget.cryptoCurrencyModel.name!} #${widget.cryptoCurrencyModel.marketCapRank!}",
-                style: const TextStyle(
-                    //color: Colors.blue,
-                    fontWeight: FontWeight.w400,
-                    fontSize: 19),
-              ),
+            Text(
+              "${widget.cryptoCurrencyModel.name!} #${widget.cryptoCurrencyModel.marketCapRank!}",
+              style: const TextStyle(
+                  //color: Colors.blue,
+                  fontWeight: FontWeight.w400,
+                  fontSize: 19),
             ),
             const SizedBox(
               width: 10,

@@ -132,7 +132,10 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                               Positioned(
                                   right: -50,
                                   child: Opacity(
-                                    opacity: 0.6,
+                                    opacity:
+                                        (themeProv.themeMode == ThemeMode.light)
+                                            ? 0.4
+                                            : 0.2,
                                     child: Image.asset(
                                       "images/topRightTrend.png",
                                     ),
@@ -146,7 +149,12 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                                     decoration: BoxDecoration(
                                         color: const Color.fromARGB(
                                                 255, 186, 188, 223)
-                                            .withOpacity(0.5),
+                                            .withOpacity(
+                                          (themeProv.themeMode ==
+                                                  ThemeMode.light)
+                                              ? 0.4
+                                              : 0.2,
+                                        ),
                                         shape: BoxShape.circle),
                                   )),
                             ],

@@ -57,7 +57,6 @@ class _FavouriteCryptoTileListState extends State<FavouriteCryptoTileList>
         priceData.add(
             PriceData(day: finalListDate[i], price: finalListPrice[i], id: id));
       }
-      print(priceData);
       return priceData;
     } catch (ex) {
       return [];
