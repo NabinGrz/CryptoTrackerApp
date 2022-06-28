@@ -64,7 +64,7 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                             children: [
                               Container(
                                   height: double.infinity,
-                                  width: getDeviceWidth(context) / 2.2,
+                                  width: getDeviceWidth(context) / 2.5,
                                   decoration: BoxDecoration(
                                       color: (themeProv.themeMode ==
                                               ThemeMode.light)
@@ -83,6 +83,8 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                                       borderRadius:
                                           BorderRadius.circular(25.0)),
                                   child: Column(
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
                                     children: [
                                       Align(
                                         alignment: Alignment.topLeft,
@@ -97,14 +99,13 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                                           ),
                                         ),
                                       ),
-                                      ListTile(
-                                        leading: Text(
-                                          coin.item!.name!,
-                                          overflow: TextOverflow.ellipsis,
-                                          style: const TextStyle(
-                                              fontSize: 20,
-                                              fontWeight: FontWeight.bold),
-                                        ),
+
+                                      Text(
+                                        coin.item!.name!,
+                                        overflow: TextOverflow.ellipsis,
+                                        style: const TextStyle(
+                                            fontSize: 20,
+                                            fontWeight: FontWeight.bold),
                                       ),
                                       Align(
                                         alignment: Alignment.bottomLeft,
@@ -126,6 +127,9 @@ class _TrendingCryptoPageState extends State<TrendingCryptoPage> {
                                           ],
                                         ),
                                       ),
+                                      const SizedBox(
+                                        height: 5,
+                                      )
                                       //buildChart(context, priceData, index)
                                     ],
                                   )),

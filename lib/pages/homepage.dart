@@ -1,3 +1,4 @@
+import 'package:cryptotrackerapp/apiservices/api.dart';
 import 'package:cryptotrackerapp/model/pricechartmodel.dart';
 import 'package:cryptotrackerapp/pages/favourites.dart';
 import 'package:cryptotrackerapp/pages/login.dart';
@@ -71,16 +72,27 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     const EdgeInsets.symmetric(horizontal: 20.0, vertical: 10),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
-                  children: const [
-                    Text(
-                      "Welcome",
-                      style:
-                          TextStyle(fontSize: 20, fontWeight: FontWeight.w400),
+                  children: [
+                    GestureDetector(
+                      onTap: () async {
+                        API.getMarketData();
+                      },
+                      child: const Text(
+                        "Welcome",
+                        style: TextStyle(
+                            fontSize: 20, fontWeight: FontWeight.w400),
+                      ),
                     ),
-                    Text(
-                      "Crypto Tracker",
-                      style:
-                          TextStyle(fontSize: 26, fontWeight: FontWeight.bold),
+                    GestureDetector(
+                      onTap: () async {
+                        print("NABIN");
+                        API.getMarketData();
+                      },
+                      child: const Text(
+                        "Crypto Tracker",
+                        style: TextStyle(
+                            fontSize: 26, fontWeight: FontWeight.bold),
+                      ),
                     ),
                   ],
                 ),

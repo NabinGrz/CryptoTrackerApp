@@ -21,3 +21,15 @@ Color buttonColor = const Color(0xff58caf0);
 //TEXT COLOR
 Color textColor1 = const Color(0XFF767c9c);
 Color whiteTextColor = Colors.white;
+
+// bool isLightTheme(BuildContext context) {
+//   ThemeProvider themeProvider =
+//       Provider.of<ThemeProvider>(context, listen: false);
+//   if (themeProvider.themeMode == ThemeMode.light) {
+//     print(themeProvider.themeMode);
+//     return true;
+//   } else {
+//     print(themeProvider.themeMode);
+//     return false;
+//   }
+// }
