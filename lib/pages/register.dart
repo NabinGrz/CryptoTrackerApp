@@ -1,7 +1,12 @@
 import 'dart:developer';
 
+import 'package:cryptotrackerapp/pages/login.dart';
+import 'package:cryptotrackerapp/provider/textfield-provider.dart';
+import 'package:cryptotrackerapp/utils/utility.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class MyRegister extends StatefulWidget {
   const MyRegister({Key? key}) : super(key: key);
@@ -14,6 +19,7 @@ class _MyRegisterState extends State<MyRegister> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController confirmpasswordController = TextEditingController();
+  bool isLogging = false;
 
   void creatAccount() async {
     String email = emailController.text.trim();
@@ -32,6 +38,11 @@ class _MyRegisterState extends State<MyRegister> {
         }
         log("User created");
       } on FirebaseAuthException catch (ex) {
+        isLogging = false;
+        setState(() {});
+        ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+          content: Text(ex.code.toString()),
+        ));
         log(ex.code.toString());
       }
     }
@@ -39,137 +50,190 @@ class _MyRegisterState extends State<MyRegister> {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: const BoxDecoration(
-        image: DecorationImage(
-            image: AssetImage('images/register.png'), fit: BoxFit.cover),
-      ),
-      child: Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.transparent,
-          elevation: 0,
-        ),
-        backgroundColor: Colors.transparent,
-        body: Stack(children: [
-          Container(
-            padding: const EdgeInsets.only(left: 35, top: 80),
-            child: const Text(
-              "Create\nAccount",
-              style: TextStyle(color: Colors.white, fontSize: 33),
-            ),
+    return Consumer<TextFieldProvider>(
+      builder: (context, textFieldProvider, child) {
+        return Scaffold(
+          resizeToAvoidBottomInset: false,
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            elevation: 0,
+            iconTheme: const IconThemeData(color: Colors.black),
           ),
-          SingleChildScrollView(
-            child: Container(
-              padding: EdgeInsets.only(
-                  right: 35,
-                  left: 35,
-                  top: MediaQuery.of(context).size.height * 0.27),
-              child: Column(children: [
-                TextField(
-                  controller: emailController,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.black),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.white),
-                    ),
-                    hintText: 'Email',
-                    hintStyle: const TextStyle(color: Colors.white),
-                  ),
+          // backgroundColor: Colors.transparent,
+          body: Column(children: [
+            Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
+              Container(
+                margin: const EdgeInsets.only(left: 15, top: 40, bottom: 30),
+                // padding: const EdgeInsets.only(left: 35, top: 80),
+                child: Text(
+                  "Get Started",
+                  style: TextStyle(
+                      color: textColor1,
+                      fontSize: 33,
+                      fontWeight: FontWeight.w800),
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  // obscureText: true,
-                  controller: passwordController,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.black),
+              ),
+              const SizedBox(
+                height: 20,
+              ),
+              Container(
+                height: getDeviceHeight(context) / 1.5,
+                width: getDeviceWidth(context),
+                margin: const EdgeInsets.symmetric(horizontal: 15),
+                // color: Colors.red,
+                child: Column(
+                  children: [
+                    TextField(
+                      controller: emailController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        hintText: 'Email',
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.white),
+                    SizedBox(
+                      height: 30,
+                      child: Text(
+                        textFieldProvider.emailErrorMessage,
+                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                      ),
                     ),
-                    hintText: 'Password',
-                    hintStyle: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                TextField(
-                  controller: confirmpasswordController,
-                  //obscureText: true,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.black),
+                    TextField(
+                      // obscureText: true,
+                      controller: passwordController,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        hintText: 'Password',
+                      ),
                     ),
-                    enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.circular(10),
-                      borderSide: const BorderSide(color: Colors.white),
+                    SizedBox(
+                      height: 30,
+                      child: Text(
+                        textFieldProvider.passwordErrorMessage,
+                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                      ),
                     ),
-                    hintText: 'Confirm Password',
-                    hintStyle: const TextStyle(color: Colors.white),
-                  ),
-                ),
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      const Text(
-                        'Sign In',
-                        style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 27,
-                          fontWeight: FontWeight.w700,
+                    TextField(
+                      controller: confirmpasswordController,
+                      //obscureText: true,
+                      decoration: const InputDecoration(
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        enabledBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        focusedBorder: OutlineInputBorder(
+                          borderSide: BorderSide(
+                              color: Color.fromARGB(255, 116, 114, 114),
+                              width: 1.0),
+                          borderRadius: BorderRadius.all(Radius.circular(15.0)),
+                        ),
+                        hintText: 'Confirm Password',
+                      ),
+                    ),
+                    SizedBox(
+                      height: 30,
+                      child: Text(
+                        textFieldProvider.cpasswordErrorMessage,
+                        style: const TextStyle(fontSize: 12, color: Colors.red),
+                      ),
+                    ),
+                    Container(
+                      height: getDeviceHeight(context) / 16,
+                      width: getDeviceWidth(context) / 2,
+                      decoration: BoxDecoration(
+                        color: blueColor,
+                        borderRadius: const BorderRadius.all(
+                          Radius.circular(8),
                         ),
                       ),
-                      CircleAvatar(
-                        radius: 30,
-                        backgroundColor: const Color(0xff4c505b),
-                        child: IconButton(
-                          color: Colors.white,
-                          onPressed: () {
-                            creatAccount();
-                            print("Nasbin");
-                          },
-                          icon: const Icon(Icons.arrow_forward),
-                        ),
-                      ),
-                    ]),
-                const SizedBox(
-                  height: 40,
-                ),
-                Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      TextButton(
+                      child: IconButton(
+                        color: Colors.white,
                         onPressed: () async {
-                          //Navigator.pushNamed(context, 'login');
+                          isLogging = true;
+                          textFieldProvider
+                              .emailValidation(emailController.text);
+                          textFieldProvider
+                              .passwordValidation(passwordController.text);
+                          textFieldProvider.cpasswordValidation(
+                              confirmpasswordController.text,
+                              passwordController.text);
+                          if (textFieldProvider.emailIsValid &&
+                              textFieldProvider.passwordIsValid &&
+                              textFieldProvider.cpasswordIsValid &&
+                              textFieldProvider.isConfirmPasswordMatch) {
+                            creatAccount();
+                          } else {
+                            isLogging = false;
+                          }
                         },
-                        child: const Text(
-                          'Login',
-                          style: TextStyle(
-                            decoration: TextDecoration.underline,
-                            fontSize: 18,
-                            color: Colors.white,
-                          ),
+                        icon: isLogging
+                            ? const Center(
+                                child: CircularProgressIndicator(
+                                color: Colors.white,
+                              ))
+                            : const Text("Sign Up",
+                                style: TextStyle(color: Colors.white)),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    GestureDetector(
+                      onTap: () {
+                        Navigator.pushReplacement(context, CupertinoPageRoute(
+                          builder: (context) {
+                            return const MyLogin();
+                          },
+                        ));
+                      },
+                      child: Text(
+                        'Already have an account?',
+                        style: TextStyle(
+                          //decoration: TextDecoration.underline,
+                          fontSize: 15,
+                          color: textColor1,
                         ),
                       ),
-                    ]),
-              ]),
-            ),
-          ),
-        ]),
-      ),
+                    ),
+                  ],
+                ),
+              ),
+            ]),
+          ]),
+        );
+      },
     );
   }
 }

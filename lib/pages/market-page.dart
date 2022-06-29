@@ -2,6 +2,7 @@ import 'package:cryptotrackerapp/model/cryptocurrencymodel.dart';
 import 'package:cryptotrackerapp/pages/trending-page.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
 import 'package:cryptotrackerapp/provider/trending-crypto-provider.dart';
+import 'package:cryptotrackerapp/utils/utility.dart';
 import 'package:cryptotrackerapp/widgets/market-list-tile.dart';
 import 'package:cryptotrackerapp/widgets/searchbartypeahead.dart';
 import 'package:flutter/material.dart';
@@ -62,6 +63,9 @@ class _MarketPageState extends State<MarketPage> {
                       ),
                     ),
                   ),
+                  // SizedBox(
+                  //     width: getDeviceWidth(context) - 20,
+                  //     child: const Divider()),
                   const SizedBox(
                     height: 20,
                   ),
@@ -84,6 +88,9 @@ class _MarketPageState extends State<MarketPage> {
                       ),
                     ),
                   ),
+                  SizedBox(
+                      width: getDeviceWidth(context) - 20,
+                      child: const Divider()),
                   Expanded(
                     flex: 1,
                     child: ListView.builder(

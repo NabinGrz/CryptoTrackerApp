@@ -3,6 +3,7 @@ import 'package:cryptotrackerapp/localstorage/local-storage.dart';
 import 'package:cryptotrackerapp/pages/homepage.dart';
 import 'package:cryptotrackerapp/pages/login.dart';
 import 'package:cryptotrackerapp/provider/market-provider.dart';
+import 'package:cryptotrackerapp/provider/textfield-provider.dart';
 import 'package:cryptotrackerapp/provider/theme-provider.dart';
 import 'package:cryptotrackerapp/provider/trending-crypto-provider.dart';
 import 'package:cryptotrackerapp/themes/themes.dart';
@@ -38,6 +39,9 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider<TrendingCryptoProvider>(
           create: (context) => TrendingCryptoProvider(),
+        ),
+        ChangeNotifierProvider<TextFieldProvider>(
+          create: (context) => TextFieldProvider(),
         ),
       ],
       child: Consumer<ThemeProvider>(
