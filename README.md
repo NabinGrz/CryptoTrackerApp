@@ -1,16 +1,8 @@
-# cryptotrackerapp
+# Crypto Tracker App
 
-A new Flutter project.
+A crytpo tracker app is build with provider and shared preference in flutter. It have a feature of registering and login user with the help of Firabase. It has a feature of dark mode and light mode theme. It also has a feature of adding any crypto to favourite. For the data, "coingeko" api is used.
+# Screenshots
+<img width="1035" alt="Group 12" src="https://user-images.githubusercontent.com/81028182/176375103-bbeec714-811c-432c-ac91-b302f09121a4.png">
+<img width="1035" alt="Group 13" src="https://user-images.githubusercontent.com/81028182/176375114-e0b88e17-1837-4ac1-b1a8-756078c3bd55.png">
+<img width="1035" alt="Group 14" src="https://user-images.githubusercontent.com/81028182/176375120-1b314b1b-3310-4c60-b6df-ccfaab5a041b.png">
 
-## Getting Started
-
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
